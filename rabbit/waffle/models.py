@@ -13,3 +13,8 @@ class Comment(models.Model):
     commenter = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     comment = models.TextField()
     comment_date = models.DateTimeField(default=timezone.now)
+
+
+class Repost(models.Model):
+    reposter = models.ForeignKey('auth.user', on_delete=models.CASCADE)
+    original_post = models.ForeignKey(Post, on_delete=models.CASCADE)
