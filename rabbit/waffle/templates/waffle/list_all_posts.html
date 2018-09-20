@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List All Posts</title>
+</head>
+<body>
+{% for post in posts %}
+    {{post.author }} said: {{ post.text }}
+{% endfor %}
+</body>
+</html>
