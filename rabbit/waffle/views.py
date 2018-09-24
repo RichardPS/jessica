@@ -9,6 +9,6 @@ def posts(request):
 
 
 def user_view(request, username):
-    thisuser='richard'
-    posts = Post.objects.filter(author=username)
+    print(username)
+    posts = Post.objects.filter(author__username=username).order_by('created_date')
     return render(request, 'waffle/list_all_posts.html', {'posts': posts})
