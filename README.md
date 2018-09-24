@@ -25,9 +25,11 @@ pip install -r requirements.txt
 
 ## Common Git commands
 
-git clone <repo url>
-git checkput -b <new branch name>
-git checkout <branch name>
+git clone \<repo url\>
+
+git checkput -b \<new branch name\>
+
+git checkout \<branch name\>
 
 
 ## Requirements
