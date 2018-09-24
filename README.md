@@ -2,7 +2,7 @@
 
 Twitter clone for PDT
 
-##Env setup
+## Env setup
 
 sudo apt-get install git
 
@@ -13,17 +13,17 @@ sudo apt-get install virtualenv
 virtualenv -p python3 dev
 
 
-##Clone repo
+## Clone repo
 
 git clone https://github.com/RichardPS/jessica.git
 
 
-##Install requirements
+## Install requirements
 
 pip install -r requirements.txt
 
 
-##Common Git commands
+## Common Git commands
 
 git clone <repo url>
 git checkput -b <new branch name>
