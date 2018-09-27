@@ -13,11 +13,9 @@ def user_view(request, username):
         author__username=username
         ).order_by('created_date')
 
-
     reposted = Repost.objects.filter(
         reposter__username=username
         )
-
 
     return render(
         request,

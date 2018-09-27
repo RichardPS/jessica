@@ -1,5 +1,4 @@
 from django.conf.urls import url
-import re
 
 from . import views
 
