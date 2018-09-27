@@ -3,7 +3,6 @@ from django.db.models.expressions import Value
 from django.db import models
 
 from .models import Post
-from .models import Repost
 
 
 def posts(request):
@@ -34,10 +33,14 @@ def user_view(request, username):
 
     allposts = posts.union(reposted).order_by('created_date')
 
-    #import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
 
     return render(
         request,
         'waffle/list_all_posts.html',
         {'allposts': allposts}
         )
+
+
+def user_profile(request, username):
+    return render(request, 'waffle/view_profile.html', {})
