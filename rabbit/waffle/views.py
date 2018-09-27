@@ -13,24 +13,14 @@ def user_view(request, username):
         author__username=username
         ).order_by('created_date')
 
+
     reposted = Repost.objects.filter(
         reposter__username=username
         )
 
-    post_list = []
-
-    for x in reposted:
-        post_list.append(x.original_post.pk)
-
-    print(post_list)
-
-    reposts = Post.objects.filter(
-        author__in=post_list
-        )
 
     return render(
         request,
         'waffle/list_all_posts.html',
-        {'posts': posts},
-        {'reposts', reposts}
+        {'posts': posts, 'reposted': reposted}
         )

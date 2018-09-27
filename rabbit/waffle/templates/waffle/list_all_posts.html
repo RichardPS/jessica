@@ -4,12 +4,17 @@
     <title>{{ title }}</title>
 </head>
 <body>
-{% for post in posts %}
-    {{post.author }} said: {{ post.text }}
-{% endfor %}
+<section class="posts">
+    {% for post in posts %}
+        {{post.author }} said: {{ post.text }}
+    {% endfor %}
+</section>
 
-{% for repost in reposts %}
-    {{repost.author}} said: {{ repost.text }}
-{% endfor %}
+<section class="reposts">
+    {% for repost in reposted %}
+            {{repost.original_post.author}} said: {{ repost.original_post.text }}
+    {% endfor %}
+</section>
+
 </body>
 </html>
