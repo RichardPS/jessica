@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from .models import Post
+from .models import Follow
 
 
 def posts(request):
@@ -11,7 +12,9 @@ def posts(request):
     return render(
         request,
         'waffle/list_all_posts.html',
-        {'allposts': allposts}
+        {
+        'allposts': allposts,
+        }
         )
 
 
@@ -39,14 +42,23 @@ def user_view(request, username):
     return render(
         request,
         'waffle/list_all_posts.html',
-        {'allposts': allposts}
+        {
+        'allposts': allposts,
+        }
         )
 
 
 def user_profile(request, username):
     user_profile = User.objects.get(username=username)
+    followers = Follow.objects.filter(follower__username=username)
+
+    # import pdb; pdb.set_trace()
+
     return render(
         request,
         'waffle/view_profile.html',
-        {'user_profile': user_profile}
+        {
+        'user_profile': user_profile,
+        'followers': followers,
+        }
         )

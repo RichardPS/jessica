@@ -10,6 +10,11 @@
     <p>Joined: {{ user_profile.date_joined }}
     <p>Last Active: {{ user_profile.last_login }}</p>
 </section>
+<section class="followers">
+    {% for follower in followers %}
+        {{ follower.author.username }}
+    {% endfor %}
+</section>
 
 </body>
 </html>
