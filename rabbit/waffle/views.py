@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.db.models.expressions import Value
+from django.contrib.auth.models import User
 from django.db import models
 
 from .models import Post
@@ -43,4 +44,9 @@ def user_view(request, username):
 
 
 def user_profile(request, username):
-    return render(request, 'waffle/view_profile.html', {})
+    user_profile = User.objects.get(username=username)
+    return render(
+        request,
+        'waffle/view_profile.html',
+        {'user_profile': user_profile}
+        )
