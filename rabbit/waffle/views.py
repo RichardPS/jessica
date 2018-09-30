@@ -13,7 +13,7 @@ def posts(request):
         request,
         'waffle/list_all_posts.html',
         {
-        'allposts': allposts,
+        'allposts': allposts
         }
         )
 
@@ -43,14 +43,15 @@ def user_view(request, username):
         request,
         'waffle/list_all_posts.html',
         {
-        'allposts': allposts,
+        'allposts': allposts
         }
         )
 
 
 def user_profile(request, username):
     user_profile = User.objects.get(username=username)
-    followers = Follow.objects.filter(follower__username=username)
+    followers = Follow.objects.filter(followee__username=username)
+    following = Follow.objects.filter(followee__username=username)
 
     # import pdb; pdb.set_trace()
 
@@ -60,5 +61,6 @@ def user_profile(request, username):
         {
         'user_profile': user_profile,
         'followers': followers,
+        'following': following
         }
         )

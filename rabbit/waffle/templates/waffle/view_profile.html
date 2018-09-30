@@ -5,15 +5,24 @@
 </head>
 <body>
 <section class="profile">
+    <h1>Details</h1>
     <p>Username: {{ user_profile.username }}</p>
     <p>User Email: {{ user_profile.email }}</p>
     <p>Joined: {{ user_profile.date_joined }}
     <p>Last Active: {{ user_profile.last_login }}</p>
 </section>
 <section class="followers">
+    <h1>Followers</h1>
     {% for follower in followers %}
-        {{ follower.author.username }}
+        {{ follower.follower }}
     {% endfor %}
+</section>
+
+<section class="following">
+    <h1>Follows</h1>
+    {% for follows in following %}
+        {{ follows.follower }}
+    {% endfor %}    
 </section>
 
 </body>

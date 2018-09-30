@@ -48,6 +48,9 @@ class Follow(models.Model):
         on_delete=models.CASCADE
         )
 
+    def __str__(self):
+        return '{0} follows: {1}'.format(self.follower, self.followee)
+
 
 class Mention(models.Model):
     user = models.ForeignKey(
