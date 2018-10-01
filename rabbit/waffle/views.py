@@ -53,7 +53,10 @@ def user_profile(request, username):
     followers = Follow.objects.filter(followee__username=username)
     following = Follow.objects.filter(follower__username=username)
 
-    # import pdb; pdb.set_trace()
+    if request.user.is_authenticated():
+        current_user = request.user
+
+    import pdb; pdb.set_trace()
 
     return render(
         request,
