@@ -56,7 +56,7 @@ def user_profile(request, username):
     if request.user.is_authenticated():
         current_user = request.user
 
-    import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
 
     return render(
         request,
@@ -67,3 +67,9 @@ def user_profile(request, username):
         'following': following
         }
         )
+
+def follow_user(request, followee):
+    followee_user = User.objects.get(username=followee)
+    following_user = request.user
+    # import pdb; pdb.set_trace()
+    return

@@ -4,26 +4,37 @@
     <title>{{ title }}</title>
 </head>
 <body>
-<section class="profile">
-    <h1>Details</h1>
-    <p>Username: {{ user_profile.username }}</p>
-    <p>User Email: {{ user_profile.email }}</p>
-    <p>Joined: {{ user_profile.date_joined }}
-    <p>Last Active: {{ user_profile.last_login }}</p>
-</section>
-<section class="followers">
-    <h1>Followers</h1>
-    {% for follower in followers %}
-        <p><a href="/u/{{ follower.follower }}">{{ follower.follower }}</a></p>
-    {% endfor %}
-</section>
 
-<section class="following">
-    <h1>Follows</h1>
-    {% for follows in following %}
-        <p><a href="/u/{{ follows.followee }}">{{ follows.followee }}</a></p>
-    {% endfor %}    
-</section>
+    <section class="profile">
+        <h1>Details</h1>
+        <p>Username: {{ user_profile.username }}</p>
+        <p>User Email: {{ user_profile.email }}</p>
+        <p>Joined: {{ user_profile.date_joined }}
+        <p>Last Active: {{ user_profile.last_login }}</p>
+    </section>
+
+    {% if user_profile.username !=  request.user.username %}
+    <section class="follow-user">
+        <form action="/f/{{ user_profile.username }}/" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Follow">
+        </form>
+    </section>
+    {% endif %}
+
+    <section class="followers">
+        <h1>Followers</h1>
+        {% for follower in followers %}
+            <p><a href="/u/{{ follower.follower }}">{{ follower.follower }}</a></p>
+        {% endfor %}
+    </section>
+
+    <section class="following">
+        <h1>Follows</h1>
+        {% for follows in following %}
+            <p><a href="/u/{{ follows.followee }}">{{ follows.followee }}</a></p>
+        {% endfor %}    
+    </section>
 
 </body>
 </html>
