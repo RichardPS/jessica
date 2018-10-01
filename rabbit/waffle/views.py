@@ -51,7 +51,7 @@ def user_view(request, username):
 def user_profile(request, username):
     user_profile = User.objects.get(username=username)
     followers = Follow.objects.filter(followee__username=username)
-    following = Follow.objects.filter(followee__username=username)
+    following = Follow.objects.filter(follower__username=username)
 
     # import pdb; pdb.set_trace()
 

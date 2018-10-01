@@ -14,14 +14,14 @@
 <section class="followers">
     <h1>Followers</h1>
     {% for follower in followers %}
-        {{ follower.follower }}
+        <p><a href="/u/{{ follower.follower }}">{{ follower.follower }}</a></p>
     {% endfor %}
 </section>
 
 <section class="following">
     <h1>Follows</h1>
     {% for follows in following %}
-        {{ follows.follower }}
+        <p><a href="/u/{{ follows.followee }}">{{ follows.followee }}</a></p>
     {% endfor %}    
 </section>
 
