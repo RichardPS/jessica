@@ -6,15 +6,15 @@ from django.db import models
 from .models import Post
 from .models import Follow
 
+import pdb
+
 
 def posts(request):
     allposts = Post.objects.all().order_by('created_date')
     return render(
         request,
         'waffle/list_all_posts.html',
-        {
-        'allposts': allposts
-        }
+        {'allposts': allposts}
         )
 
 
@@ -37,14 +37,12 @@ def user_view(request, username):
 
     allposts = posts.union(reposted).order_by('created_date')
 
-    # import pdb; pdb.set_trace()
+    # pdb.set_trace()
 
     return render(
         request,
         'waffle/list_all_posts.html',
-        {
-        'allposts': allposts
-        }
+        {'allposts': allposts}
         )
 
 
@@ -56,20 +54,19 @@ def user_profile(request, username):
     if request.user.is_authenticated():
         current_user = request.user
 
-    # import pdb; pdb.set_trace()
+    # pdb.set_trace()
 
     return render(
         request,
         'waffle/view_profile.html',
-        {
-        'user_profile': user_profile,
-        'followers': followers,
-        'following': following
-        }
+        {'user_profile': user_profile,
+            'followers': followers,
+            'following': following}
         )
+
 
 def follow_user(request, followee):
     followee_user = User.objects.get(username=followee)
-    following_user = request.user
-    # import pdb; pdb.set_trace()
+    following_user = User.objects.get(username=request.user.username)
+    # pdb.set_trace()
     return
