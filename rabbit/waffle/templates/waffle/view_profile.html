@@ -4,6 +4,13 @@
     <title>{{ title }}</title>
 </head>
 <body>
+    {% if messages %}
+    <section class="messages">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </section>
+    {% endif %}
 
     <section class="profile">
         <h1>Details</h1>
@@ -13,11 +20,18 @@
         <p>Last Active: {{ user_profile.last_login }}</p>
     </section>
 
-    {% if user_profile.username !=  request.user.username %}
+    {% if user_profile.username !=  request.user.username and already_follows < 1 %}
     <section class="follow-user">
         <form action="/f/{{ user_profile.username }}/" method="post">
             {% csrf_token %}
             <input type="submit" value="Follow">
+        </form>
+    </section>
+    {% else %}
+    <section class="unfollow-user">
+        <form action="/uf/{{ user_profile.username }}/" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Unfollow">
         </form>
     </section>
     {% endif %}

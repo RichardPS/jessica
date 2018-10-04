@@ -1,8 +1,14 @@
 from django.forms import ModelForm
-from .models import Follow
+from .models import Post, Comment
 
 
-class FollowForm(ModelForm):
+class PostForm(ModelForm):
     class Meta:
-        model = Follow
-        fields = ['follower', 'followee']
+        model = Post
+        fields = ['text']
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment']
