@@ -6,9 +6,15 @@
 <body>
 <section class="posts">
     {% for post in allposts %}
-        {{post.author }} said: {{ post.text }}<br>
-        {{ form }}
+        {{ post.author }} said: {{ post.text }}<br>
+        <form action="/comment/{{ post.author }}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{ post.pk }}" name="pk">
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
     {% endfor %}
+    <br>
 </section>
 
 </body>

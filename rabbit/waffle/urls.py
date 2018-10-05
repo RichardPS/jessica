@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^p/(?P<username>\w+)/$', views.user_profile, name='user_profile'),
     url(r'^f/(?P<followee>\w+)/$', views.follow_user, name='follow_user'),
     url(r'^uf/(?P<followee>\w+)/$', views.unfollow_user, name='unfollow_user'),
+    url(r'^comment/(?P<username>\w+)$', views.post_comment, name='post_comment'),
 ]

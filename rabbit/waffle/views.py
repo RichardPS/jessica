@@ -102,3 +102,12 @@ def unfollow_user(request, followee):
 
 
     return redirect ('/p/' + followee)
+
+def post_comment(request, username):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+
+    pdb.set_trace()
+    return redirect('/u/' + username)
