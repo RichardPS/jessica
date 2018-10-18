@@ -3,12 +3,15 @@
 <head>
     <title>{{ title }}</title>
     <style>
-        .post {
+        .post, .comment {
             border: 1px solid #ccc;
             background: #f2f2f2;
             border-radius: 5px;
             margin: 4px 0;
             padding: 10px;
+        }
+        .comment {
+            margin-left: 15px;
         }
     </style>
 </head>
@@ -21,13 +24,14 @@
     </section>
     {% endif %}
 <section class="posts">
-    {% for post in allposts %}
-        <div class="post">
-            <a href="{{ post.get_absolute_url }}">{{ post.author }}</a> said: {{ post.text }}
+    <div class="post">
+        {{ post.author }} said: {{ post.text }}
+    </div>
+</section class="comments">
+    {% for comment in comments %}
+        <div class="comment">
+            {{ comment.comment }}
         </div>
     {% endfor %}
-    <br>
-</section>
-
 </body>
 </html>

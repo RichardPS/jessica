@@ -8,6 +8,7 @@ import pdb
 
 from .forms import CommentForm
 from .models import Post
+from .models import Comment
 from .models import Follow
 from . import settings
 
@@ -20,6 +21,18 @@ def posts(request):
         {'allposts': allposts}
         )
 
+
+def single_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    comments = Comment.objects.filter(post__pk=pk).order_by('comment_date')
+
+    # pdb.set_trace()
+
+    return render(
+        request,
+        'waffle/list_single_post.html',
+        { 'post': post, 'comments': comments }
+        )
 
 def user_view(request, username):
     posts = Post.objects.filter(
@@ -40,14 +53,12 @@ def user_view(request, username):
 
     allposts = posts.union(reposted).order_by('created_date')
 
-    form = CommentForm()
-
     # pdb.set_trace()
 
     return render(
         request,
         'waffle/list_all_posts.html',
-        {'allposts': allposts, 'form': form}
+        {'allposts': allposts}
         )
 
 

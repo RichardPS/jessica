@@ -14,6 +14,9 @@ class Post(models.Model):
     def __str__(self):
         return '{0}: {1}'.format(self.author, self.id)
 
+    def get_absolute_url(self):
+        return '/sp/{0}'.format(self.author.pk)
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
