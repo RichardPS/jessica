@@ -1,14 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models.expressions import Value
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db import models
 
+import pdb
+
+from .forms import CommentForm
 from .models import Post
 from .models import Follow
-from .forms import CommentForm
-
-import pdb
+from . import settings
 
 
 def posts(request):
@@ -66,48 +67,69 @@ def user_profile(request, username):
     return render(
         request,
         'waffle/view_profile.html',
-        {'user_profile': user_profile,
+        {
+            'user_profile': user_profile,
             'followers': followers,
             'following': following,
             'already_follows': already_follows,
-            }
+        }
         )
 
 
 def follow_user(request, followee):
 
-    if request.method == 'POST':        
+    if request.method == 'POST':
         followee_user = User.objects.get(username=followee)
         following_user = request.user
         Follow.objects.create(follower=following_user, followee=followee_user)
-        messages.success(request, 'You are now following {0}'.format(followee))
+        messages.success(
+            request,
+            settings.FOLLOW_USER_SUCCESS_MESSAGE.format(followee)
+            )
     else:
-        return redirect ('/p/' + followee)
+        return redirect('/p/' + followee)
 
-    return redirect ('/p/' + followee)
+    return redirect('/p/' + followee)
 
 
 def unfollow_user(request, followee):
-    if request.method == 'POST':  
+    if request.method == 'POST':
         followee_user = User.objects.get(username=followee)
         following_user = request.user
-        unfollow = Follow.objects.filter(follower=following_user, followee=followee_user)
+        unfollow = Follow.objects.filter(
+            follower=following_user,
+            followee=followee_user
+            )
 
         for follows in unfollow:
             follows.delete()
 
-        messages.success(request, 'You have now unfollowed {0}'.format(followee))
+        messages.success(
+            request,
+            settings.UNFOLLOW_USER_SUCCESS_MESSAGE.format(followee)
+            )
     else:
-        return redirect ('/p/' + followee)
+        return redirect('/p/' + followee)
+
+    return redirect('/p/' + followee)
 
 
-    return redirect ('/p/' + followee)
+def post_comment(request, pk):
+    user = request.user
+    post = get_object_or_404(Post, pk=int(pk))
 
-def post_comment(request, username):
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
+            comment = form.save(commit=False)
+            comment.commenter = user
+            comment.post = post
 
-    pdb.set_trace()
-    return redirect('/u/' + username)
+            comment.save()
+
+    messages.success(
+        request,
+        settings.POST_COMMENT_SUCCESS_MESSAGE.format(post.author.username)
+        )
+    # pdb.set_trace()
+    return redirect('/u/' + post.author.username)

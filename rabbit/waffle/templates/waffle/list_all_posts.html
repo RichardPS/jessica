@@ -3,16 +3,24 @@
 <head>
     <title>{{ title }}</title>
 </head>
-<body>
+<body>    
+    {% if messages %}
+    <section class="messages">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </section>
+    {% endif %}
 <section class="posts">
     {% for post in allposts %}
         {{ post.author }} said: {{ post.text }}<br>
-        <form action="/comment/{{ post.author }}" method="POST">
-            {% csrf_token %}
-            <input type="hidden" value="{{ post.pk }}" name="pk">
-            {{ form }}
-            <input type="submit" value="Submit">
-        </form>
+        {% if user.is_authenticated %}
+            <form action="/comment/{{ post.pk }}" method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit">
+            </form>
+        {% endif %}
     {% endfor %}
     <br>
 </section>
