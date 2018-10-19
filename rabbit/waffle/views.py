@@ -26,13 +26,29 @@ def single_post(request, pk):
     post = Post.objects.get(pk=pk)
     comments = Comment.objects.filter(post__pk=pk).order_by('comment_date')
 
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.commenter = request.user
+            comment.post = post
+            comment.save()
+            return redirect('/sp/{0}'.format(pk))
+    else:
+        comment_form = CommentForm()
+
     # pdb.set_trace()
 
     return render(
         request,
         'waffle/list_single_post.html',
-        { 'post': post, 'comments': comments }
+        {
+            'post': post,
+            'comments': comments,
+            'comment_form': comment_form
+        }
         )
+
 
 def user_view(request, username):
     posts = Post.objects.filter(

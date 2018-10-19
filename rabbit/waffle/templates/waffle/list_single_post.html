@@ -27,11 +27,18 @@
     <div class="post">
         {{ post.author }} said: {{ post.text }}
     </div>
-</section class="comments">
+</section>
+<section class="comments">
     {% for comment in comments %}
         <div class="comment">
-            {{ comment.comment }}
+            {{ comment.commenter }} said: {{ comment.comment }}
         </div>
     {% endfor %}
+</section>
+<form class="comment-form" method="POST">
+    {% csrf_token %}
+    {{ comment_form }}
+    <input type="submit" value="Submit">
+</form>
 </body>
 </html>
