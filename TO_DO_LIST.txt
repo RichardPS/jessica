@@ -1,6 +1,0 @@
-Django: reverse, get_absolute_url
-
-https://docs.djangoproject.com/en/2.1/ref/models/instances/#get-absolute-url
-
-
-refactor views so commenting is done on a single comment view
