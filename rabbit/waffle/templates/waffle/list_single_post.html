@@ -16,29 +16,37 @@
     </style>
 </head>
 <body>    
-    {% if messages %}
-    <section class="messages">
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    </section>
-    {% endif %}
+{% if messages %}
+<section class="messages">
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+</section>
+{% endif %}
+{% if post %}
 <section class="posts">
     <div class="post">
-        {{ post.author }} said: {{ post.text }}
+        <p>{{ post.author }} said: {{ post.text }}</p>
+        <p>{{ post.created_date }}</p>
     </div>
 </section>
+{% endif %}
+{% if comments %}
 <section class="comments">
     {% for comment in comments %}
         <div class="comment">
-            {{ comment.commenter }} said: {{ comment.comment }}
+            <p>{{ comment.commenter }} said: {{ comment.comment }}</p>
+            <p>{{ comment.comment_date }}
         </div>
     {% endfor %}
 </section>
+{% endif %}
+{% if post %}
 <form class="comment-form" method="POST">
     {% csrf_token %}
     {{ comment_form }}
     <input type="submit" value="Submit">
 </form>
+{% endif %}
 </body>
 </html>
