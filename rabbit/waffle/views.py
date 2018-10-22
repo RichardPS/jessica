@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.db import models
 from django.db.models.expressions import Value
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.db import models
+from django.shortcuts import render, redirect, get_object_or_404
 
 import pdb
 
@@ -33,7 +33,7 @@ def single_post(request, pk):
             comment.commenter = request.user
             comment.post = post
             comment.save()
-            return redirect('/sp/{0}'.format(pk))
+            return redirect(post.get_absolute_url())
     else:
         comment_form = CommentForm()
 

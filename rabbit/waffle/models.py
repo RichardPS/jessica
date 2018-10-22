@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+from django.urls import reverse
 
 
 class Post(models.Model):
@@ -15,7 +16,10 @@ class Post(models.Model):
         return '{0}: {1}'.format(self.author, self.id)
 
     def get_absolute_url(self):
-        return '/sp/{0}'.format(self.author.pk)
+        return reverse(
+            'single_post',
+            args=[int(self.pk)]
+            )
 
 
 class Comment(models.Model):
